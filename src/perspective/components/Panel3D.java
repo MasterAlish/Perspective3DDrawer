@@ -15,6 +15,7 @@ public class Panel3D extends JPanel {
     private float yScale = 40;
 
     private int angle = 0;
+    private Coord coord = new Coord(-3f, 0, 0);
     private WidthHeight size;
     private Xy center;
     private Xy zero;
@@ -53,11 +54,7 @@ public class Panel3D extends JPanel {
             g.drawLine(center.x, center.y, convertX(x), y);
         }
 
-        drawCube(g, new Cube(new Coord(2, 0, 0), 2.5f, Color.red));
-        drawCube(g, new Cube(new Coord(2, 0, 4), 2.5f, Color.red));
-        drawCube(g, new Cube(new Coord(2, 0, 8), 2.5f, Color.red));
-        drawCube(g, new Cube(new Coord(2, 0, 12), 2.5f, Color.red));
-        drawCube(g, new Cube(new Coord(2, 0, 16), 2.5f, Color.red));
+        drawCube(g, new Cube(coord, 2.5f, Color.red));
 
         drawPyramid(g, new Pyramid(new Coord(-4, 0, 2), 2.5f, 2f, Color.orange), angle);
         drawPyramid(g, new Pyramid(new Coord(-4, 0, 6), 2.5f, 2f, Color.orange), angle);
@@ -218,6 +215,15 @@ public class Panel3D extends JPanel {
 
     public void tick() {
         angle+=1;
+        if(angle%400 < 100){
+            coord.x += 0.05;
+        }else if(angle%400 < 200){
+            coord.y += 0.05;
+        }else if(angle%400 < 300){
+            coord.x -= 0.05;
+        }else{
+            coord.y -= 0.05;
+        }
         repaint();
     }
 }
